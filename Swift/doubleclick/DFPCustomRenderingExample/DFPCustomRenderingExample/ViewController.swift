@@ -158,6 +158,7 @@ extension ViewController : GADNativeAppInstallAdLoaderDelegate {
   func adLoader(_ adLoader: GADAdLoader, didReceive nativeAppInstallAd: GADNativeAppInstallAd) {
     print("Received native app install ad: \(nativeAppInstallAd)")
     refreshAdButton.isEnabled = true
+    nativeAppInstallAd.delegate = self
     // Create and place ad in view hierarchy.
     let nibView = Bundle.main.loadNibNamed("NativeAppInstallAdView", owner: nil, options: nil)?.first
     guard let appInstallAdView: GADNativeAppInstallAdView = nibView as? GADNativeAppInstallAdView else {
@@ -249,6 +250,7 @@ extension ViewController : GADNativeContentAdLoaderDelegate {
   func adLoader(_ adLoader: GADAdLoader, didReceive nativeContentAd: GADNativeContentAd) {
     print("Received native content ad: \(nativeContentAd)")
     refreshAdButton.isEnabled = true
+    nativeContentAd.delegate = self
     // Create and place ad in view hierarchy.
     let nibView = Bundle.main.loadNibNamed("NativeContentAdView", owner: nil, options: nil)?.first
     guard let contentAdView: GADNativeContentAdView = nibView as? GADNativeContentAdView else {
@@ -284,7 +286,7 @@ extension ViewController : GADNativeContentAdLoaderDelegate {
 }
 
 // MARK: - GADNativeCustomTemplateAdLoaderDelegate
-extension ViewController : GADNativeCustomTemplateAdLoaderDelegate {
+extension ViewController : GADNativeCustomTemplateAdLoaderDelegate{
   func nativeCustomTemplateIDs(for adLoader: GADAdLoader) -> [String] {
     return [ nativeCustomTemplateId ]
   }
@@ -293,6 +295,7 @@ extension ViewController : GADNativeCustomTemplateAdLoaderDelegate {
                 didReceive nativeCustomTemplateAd: GADNativeCustomTemplateAd) {
     print("Received custom native ad: \(nativeCustomTemplateAd)")
     refreshAdButton.isEnabled = true
+    nativeCustomTemplateAd.delegate = self
     // Create and place the ad in the view hierarchy.
     let customNativeAdView = Bundle.main.loadNibNamed(
       "SimpleCustomNativeAdView", owner: nil, options: nil)!.first as! MySimpleNativeAdView
@@ -305,6 +308,32 @@ extension ViewController : GADNativeCustomTemplateAdLoaderDelegate {
     // Populate the custom native ad view with the custom native ad assets.
     customNativeAdView.populate(withCustomNativeAd:nativeCustomTemplateAd)
   }
+}
+
+extension ViewController : GADNativeAdDelegate {
+    func nativeAdDidRecordClick(_ nativeAd: GADNativeAd) {
+        
+    }
+    
+    func nativeAdDidDismissScreen(_ nativeAd: GADNativeAd) {
+        
+    }
+    
+    func nativeAdWillDismissScreen(_ nativeAd: GADNativeAd) {
+        
+    }
+    
+    func nativeAdWillPresentScreen(_ nativeAd: GADNativeAd) {
+        
+    }
+    
+    func nativeAdDidRecordImpression(_ nativeAd: GADNativeAd) {
+        
+    }
+    
+    func nativeAdWillLeaveApplication(_ nativeAd: GADNativeAd) {
+        
+    }
 }
 
 // MARK: - GADVideoControllerDelegate implementation
